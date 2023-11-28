@@ -22,7 +22,6 @@ app.get('/pessoa', (req, res)=>{
 
 app.get('/pessoa/:id', (req, res)=>{
      const {id} = req.params;
-    //  const pessoa = database.pessoa[id];//está acessando a pessoa pelo índice do array o que é errado
     const pessoa = database.pessoa.find((person) => person.id === parseInt(id));
 
     console.log(pessoa);
@@ -39,7 +38,6 @@ app.get('/pessoa/:id', (req, res)=>{
 
 app.post('/pessoa', (req, res)=>{
     const {nome, data_nascimento, email} = req.body;
-    // let id = database.pessoa.id;
     
     const id = database.pessoa.length +1;
 
@@ -52,12 +50,6 @@ app.post('/pessoa', (req, res)=>{
 
     database.pessoa.push(novaPessoa);
 
-    //não funciona pois não esta enviando a nova pessoa para o database
-    // database.pessoa.push({
-    //     id,
-    //     nome,
-    //     data_nascimento,
-    // });
     console.log(novaPessoa);
 
     res.send(novaPessoa);//envia a nova pessoa como resposta
@@ -78,14 +70,11 @@ app.delete('/pessoa/:id', (req, res)=>{
     {
         res.send('Pessoa não encontrada.');
     }
-    // const pessoa = database.pessoa[id];
-    // res.send(database.pessoa[id]);
 });
 
 app.patch('/pessoa/:id', (req, res)=>{
     const {id} = req.params;
     const {nome, data_nascimento, email} = req.body;
-    // const pessoa = database.pessoa[id];
     const pessoa = database.pessoa.find((person) => person.id === parseInt(id));
 
     if(pessoa)
@@ -111,9 +100,7 @@ app.patch('/pessoa/:id', (req, res)=>{
     else
     {
         res.send('Pessoa não encontrada');
-    }
-    // res.send(database.pessoa[id]);
-    
+    }    
 });
 
 app.listen(3001, ()=>{
